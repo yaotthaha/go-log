@@ -43,7 +43,7 @@ const (
 	Panic logLevel = "Panic"
 )
 
-func LevelOutput(level logLevel) string {
+func levelOutput(level logLevel) string {
 	switch level {
 	case Info:
 		return "[Info] "
@@ -62,7 +62,7 @@ func LevelOutput(level logLevel) string {
 	}
 }
 
-func LevelColorOutput(level logLevel) string {
+func levelColorOutput(level logLevel) string {
 	switch level {
 	case Info:
 		return "[" + color.GreenString(string(Info)) + "] "
@@ -84,9 +84,17 @@ func LevelColorOutput(level logLevel) string {
 type FormatFunc func(levelStr string, str string) string
 
 func DefaultFormatFunc(levelStr string, str string) string {
-	return fmt.Sprintf("[%s] %s %s", time.Now().Format("2006-01-02 15:04:05 UTC-07"), LevelOutput(logLevel(levelStr)), str)
+	return fmt.Sprintf("[%s] %s %s", time.Now().Format("2006-01-02 15:04:05 UTC-07"), levelOutput(logLevel(levelStr)), str)
 }
 
 func DefaultColorFormatFunc(levelStr string, str string) string {
-	return fmt.Sprintf("[%s] %s %s", time.Now().Format("2006-01-02 15:04:05 UTC-07"), LevelColorOutput(logLevel(levelStr)), str)
+	return fmt.Sprintf("[%s] %s %s", time.Now().Format("2006-01-02 15:04:05 UTC-07"), levelColorOutput(logLevel(levelStr)), str)
+}
+
+func DefaultWithoutTimeFormatFunc(levelStr string, str string) string {
+	return fmt.Sprintf("%s %s", levelOutput(logLevel(levelStr)), str)
+}
+
+func DefaultColorWithoutTimeFormatFunc(levelStr string, str string) string {
+	return fmt.Sprintf("%s %s", levelColorOutput(logLevel(levelStr)), str)
 }
