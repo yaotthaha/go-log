@@ -1,4 +1,4 @@
-module golog
+module github.com/yaotthaha/go-log
 
 go 1.20
 
